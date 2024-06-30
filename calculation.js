@@ -4,6 +4,7 @@ let registeredOperator = "";
 const display = document.querySelector(".display");
 const numList = document.querySelectorAll(".operand");
 const operatorList = document.querySelectorAll(".operator"); 
+const equals = document.querySelector("#equals"); 
 
 const divide = function(x, y) {
 	return x / y;
@@ -51,3 +52,13 @@ function populateDisplay(num) {
 
 operatorList.forEach(operator => operator.addEventListener("click", 
     e => console.log(registeredOperator = e.target.textContent)));
+
+function calculate() {
+    // the moment an operator button is clicked 
+    // assign current set of numbers displayed (display.textContent) to num1
+    // subsequent set of numbers typed will:
+        // overwrite current display value and start as new string
+    // once equal is pressed 
+        // assign current set of numbers displayed (display.textContent) to num2
+        // operate(num1, num2, registeredOperator)
+}
