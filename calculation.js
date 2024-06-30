@@ -35,7 +35,16 @@ function operate(operator, num1, num2) {
     }
 }
 
-const result = document.querySelector(".result");
+const display = document.querySelector(".display");
 const numList = document.querySelectorAll(".operand");
 
-numList.forEach(num => num.addEventListener("click", (e) => alert(`${e.target.textContent} is clicked`))); 
+numList.forEach(num => num.addEventListener("click",    
+    e => populateDisplay(e.target.textContent)));
+
+function populateDisplay(num) {
+    if (display.textContent != 0) {
+        display.textContent += num;
+    } else if (display.textContent == 0 && num != 0) {
+        display.textContent = num;
+    }
+}
