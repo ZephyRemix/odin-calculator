@@ -1,10 +1,30 @@
 let num1 = 0;
 let num2 = 0;
 let registeredOperator = "";
+let operatorIsClicked = false;
+let equalIsClicked = false;
 const display = document.querySelector(".display");
 const numList = document.querySelectorAll(".operand");
 const operatorList = document.querySelectorAll(".operator"); 
 const equals = document.querySelector("#equals"); 
+
+function calculate() {
+    console.log("Entered this function");
+    if (operatorIsClicked) {
+        console.log(`operator is clicked ${operatorIsClicked}`);
+        num1 = Number(display.textContent);
+    } 
+    if (equalIsClicked) {
+        num2 = Number(display.textContent);
+        console.log(`Equal is clicked, registered operator is ${registeredOperator}, num1: ${num1}, num2: ${num2}`);
+        display.textContent = operate(registeredOperator, num1, num2);
+    }
+    // subsequent set of numbers typed will:
+        // overwrite current display value and start as new string
+    // once equal is pressed 
+        // assign current set of numbers displayed (display.textContent) to num2
+        // operate(num1, num2, registeredOperator)
+}
 
 const divide = function(x, y) {
 	return x / y;
@@ -25,17 +45,13 @@ const add = function(x, y) {
 function operate(operator, num1, num2) {
     switch(operator) {
         case "/":
-            divide(num1, num2);
-            break;
+            return divide(num1, num2);
         case "*":
-            multiply(num1, num2);
-            break;
+            return multiply(num1, num2);
         case "-":
-            subtract(num1, num2);
-            break;
+            return subtract(num1, num2);
         case "+":
-            add(num1, num2);
-            break;
+            return add(num1, num2);
     }
 }
 
@@ -43,22 +59,29 @@ numList.forEach(num => num.addEventListener("click",
     e => populateDisplay(e.target.textContent)));
 
 function populateDisplay(num) {
+    // refresh display if operatorIsClicked or equalIsClicked
+    if (operatorIsClicked || equalIsClicked) {
+        display.textContent = 0;
+        operatorIsClicked = false;
+        equalIsClicked = false;
+    }
+    // if displayed value is non-zero
     if (display.textContent != 0) {
         display.textContent += num;
+    // if displayed value is at initial value of 0, update with non-zero number
     } else if (display.textContent == 0 && num != 0) {
         display.textContent = num;
-    }
+    } 
 }
 
-operatorList.forEach(operator => operator.addEventListener("click", 
-    e => console.log(registeredOperator = e.target.textContent)));
+operatorList.forEach(operator => operator.addEventListener("click", e => {
+        registeredOperator = e.target.textContent;
+        operatorIsClicked = true;
+        calculate();
+}));
 
-function calculate() {
-    // the moment an operator button is clicked 
-    // assign current set of numbers displayed (display.textContent) to num1
-    // subsequent set of numbers typed will:
-        // overwrite current display value and start as new string
-    // once equal is pressed 
-        // assign current set of numbers displayed (display.textContent) to num2
-        // operate(num1, num2, registeredOperator)
-}
+equals.addEventListener("click", () => {
+    equalIsClicked = true;
+    console.log("equal is clicked");
+    calculate();
+});
