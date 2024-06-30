@@ -34,3 +34,8 @@ function operate(operator, num1, num2) {
             break;
     }
 }
+
+const result = document.querySelector(".result");
+const numList = document.querySelectorAll(".operand");
+
+numList.forEach(num => num.addEventListener("click", (e) => alert(`${e.target.textContent} is clicked`))); 
