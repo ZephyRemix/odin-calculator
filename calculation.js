@@ -7,6 +7,7 @@ const display = document.querySelector(".display");
 const numList = document.querySelectorAll(".operand");
 const operatorList = document.querySelectorAll(".operator"); 
 const equals = document.querySelector("#equals"); 
+const clearButton = document.querySelector("#clearButton");
 
 function calculate() {
     console.log("Entered this function");
@@ -19,11 +20,6 @@ function calculate() {
         console.log(`Equal is clicked, registered operator is ${registeredOperator}, num1: ${num1}, num2: ${num2}`);
         display.textContent = operate(registeredOperator, num1, num2);
     }
-    // subsequent set of numbers typed will:
-        // overwrite current display value and start as new string
-    // once equal is pressed 
-        // assign current set of numbers displayed (display.textContent) to num2
-        // operate(num1, num2, registeredOperator)
 }
 
 const divide = function(x, y) {
@@ -84,4 +80,12 @@ operatorList.forEach(operator => operator.addEventListener("click", e => {
 equals.addEventListener("click", () => {
     equalIsClicked = true;
     calculate();
+});
+
+clearButton.addEventListener("click", () => {
+    // reset display to init value
+    display.textContent = 0;
+    num1 = 0; num2 = 0;
+    registeredOperator = "";
+    operatorIsClicked = false; equalIsClicked = false;
 });
