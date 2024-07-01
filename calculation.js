@@ -77,11 +77,11 @@ function populateDisplay(num) {
 operatorList.forEach(operator => operator.addEventListener("click", e => {
         registeredOperator = e.target.textContent;
         operatorIsClicked = true;
+        equalIsClicked = false;
         calculate();
 }));
 
 equals.addEventListener("click", () => {
     equalIsClicked = true;
-    console.log("equal is clicked");
     calculate();
 });
