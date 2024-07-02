@@ -1,5 +1,5 @@
 * {
-    /* border: 1px solid red; */
+    border: 1px solid red;
 }
 
 body {
@@ -20,13 +20,12 @@ body {
     margin: auto;
     justify-content: center;
     padding: 1rem;
-    background-color: rgb(47, 47, 47);
+    background-color: #000000;
 }
 
 .screen {
     height: 13vh;
-    border: 4px solid black;
-    background-color: #b2b9b7;
+    background-color: #000000;
     font-size: 71.5px;
     display: flex;
 }
@@ -37,4 +36,19 @@ body {
     justify-content: flex-end;
     align-items: center;
     padding: 1rem;
+    color: #fefefe;
+}
+
+.operator, #equals {
+    background-color: #ff9f0a;
+    color: white;
+}
+
+.misc {
+    background-color: #a5a5a5;
+}
+
+.operand {
+    background-color: #343434;
+    color: #fbfbfb;
 }
