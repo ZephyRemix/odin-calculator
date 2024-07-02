@@ -2,6 +2,7 @@ let num1 = 0;
 let num2 = 0;
 let registeredOperator = "";
 let prevOperator = "";
+let result = 0;
 let operatorIsClicked = false;
 let equalIsClicked = false;
 const display = document.querySelector(".display");
@@ -13,15 +14,37 @@ const clearButton = document.querySelector("#clearButton");
 function calculate() {
     console.log("Entered this function");
     if (operatorIsClicked) {
-        console.log(`operator is clicked ${operatorIsClicked}`);
+        let prev = result;
         num1 = Number(display.textContent);
+        if (prevOperator && prev && num1) {
+            result = operate(prevOperator, prev, num1);
+        } else {
+            result = num1;
+        }
+        display.textContent = result;
     } 
     if (equalIsClicked) {
+        console.log("Equal click, entered second part of function");
+        num1 = result;
         num2 = Number(display.textContent);
         console.log(`Equal is clicked, registered operator is ${registeredOperator}, num1: ${num1}, num2: ${num2}`);
-        display.textContent = operate(registeredOperator, num1, num2);
+        result = operate(registeredOperator, num1, num2);
+        display.textContent = result;
     }
 }
+
+// function calculate() {
+//     console.log("Entered this function");
+//     if (operatorIsClicked) {
+//         console.log(`operator is clicked ${operatorIsClicked}`);
+//         num1 = Number(display.textContent);
+//     } 
+//     if (equalIsClicked) {
+//         num2 = Number(display.textContent);
+//         console.log(`Equal is clicked, registered operator is ${registeredOperator}, num1: ${num1}, num2: ${num2}`);
+//         display.textContent = operate(registeredOperator, num1, num2);
+//     }
+// }
 
 const divide = function(x, y) {
 	return x / y;
@@ -72,7 +95,7 @@ function populateDisplay(num) {
 }
 
 operatorList.forEach(operator => operator.addEventListener("click", e => {
-    // prevOperator = registeredOperator;
+    prevOperator = registeredOperator;
     registeredOperator = e.target.textContent;
     operatorIsClicked = true;
     equalIsClicked = false;
