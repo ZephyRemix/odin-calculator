@@ -26,7 +26,6 @@ function calculate() {
     if (equalIsClicked) {
         num1 = result;
         num2 = Number(display.textContent);
-        // console.log(`Equal is clicked, registered operator is ${registeredOperator}, num1: ${num1}, num2: ${num2}`);
         result = operate(registeredOperator, num1, num2);
         display.textContent = result;
     }
