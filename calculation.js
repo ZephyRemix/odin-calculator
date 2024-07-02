@@ -1,6 +1,7 @@
 let num1 = 0;
 let num2 = 0;
 let registeredOperator = "";
+let prevOperator = "";
 let operatorIsClicked = false;
 let equalIsClicked = false;
 const display = document.querySelector(".display");
@@ -71,10 +72,11 @@ function populateDisplay(num) {
 }
 
 operatorList.forEach(operator => operator.addEventListener("click", e => {
-        registeredOperator = e.target.textContent;
-        operatorIsClicked = true;
-        equalIsClicked = false;
-        calculate();
+    // prevOperator = registeredOperator;
+    registeredOperator = e.target.textContent;
+    operatorIsClicked = true;
+    equalIsClicked = false;
+    calculate();
 }));
 
 equals.addEventListener("click", () => {
