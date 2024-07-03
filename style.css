@@ -1,11 +1,12 @@
-* {
+/* * {
     border: 1px solid red;
-}
+} */
 
 body {
+    background-color: #000000;
     font-family: monospace;
     font-weight: 400;
-    /* font-size: 71.5px; */
+    font-size: 71.5px;
     height: 100vh;
     margin: 0;
     display: flex;
@@ -13,20 +14,19 @@ body {
 }
 
 .calculator {
-    width: 420px;
+    width: 380px;
     height: 520px;
     display: flex;
     flex-direction: column;
     margin: auto;
     justify-content: center;
-    padding: 1rem;
+    padding: 0 1rem;
     background-color: #000000;
 }
 
 .screen {
-    height: 13vh;
+    height: 30vh;
     background-color: #000000;
-    font-size: 71.5px;
     display: flex;
 }
 
@@ -34,10 +34,22 @@ body {
     display: flex;
     flex: 1;
     justify-content: flex-end;
-    align-items: center;
-    padding: 1rem;
+    align-items: flex-end;
+    padding: 1rem 0.5rem 0.2rem 0;
     color: #fefefe;
 }
+
+.row-1, .row-2, .row-3, .row-4, .row-5 {
+    display: flex;
+}
+
+button {
+    border-radius: 50%;
+    padding: 1rem;
+    font-size: 2rem;
+    flex: 1;
+    margin: 2px 2px;
+} 
 
 .operator, #equals {
     background-color: #ff9f0a;
