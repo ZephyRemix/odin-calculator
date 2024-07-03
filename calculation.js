@@ -1,3 +1,9 @@
+/* 
+Edge cases to fix:
+- When equal is pressed immediately after a number is pressed, display screen goes blank
+- After equal is clicked, the next operator click will multiply the display screen with prev number (unintended behaviour)
+- Add logic for +/- and %
+*/
 let num1 = 0;
 let num2 = 0;
 let registeredOperator = "";
