@@ -1,10 +1,18 @@
 /* 
 Edge cases to fix:
-- When equal is pressed immediately after a number is pressed, display screen goes blank
-- After equal is clicked, the next operator click will multiply the display screen with prev number (unintended behaviour)
-- Add logic for +/- and %
-- after equal is clicked once, then subsequent operators clicked should wait for next operand in order to run 
+- Round down display to total of x numbers (so no overflow)
+- Current logic error: when clicked 60 followed by 2 operators consecutively, "60" will automatically be stored to both num1 and num2;
+- by right, it should hold on to evaluating only until the 2nd operator is keyed in, no matter how many times the operator is clicked
+
 */
+const MAX_LENGTH = 8;
+const display = document.querySelector(".display");
+const numList = document.querySelectorAll(".operand");
+const operatorList = document.querySelectorAll(".operator"); 
+const equals = document.querySelector("#equals"); 
+const clearButton = document.querySelector("#clearButton");
+const posNegButton = document.querySelector("#posNeg");
+const percentageButton = document.querySelector("#percentage");
 let num1 = 0;
 let num2 = 0;
 let currOperator = "";
@@ -12,11 +20,7 @@ let prevOperator = "";
 let result = 0;
 let operatorIsClicked = false;
 let equalIsClicked = false;
-const display = document.querySelector(".display");
-const numList = document.querySelectorAll(".operand");
-const operatorList = document.querySelectorAll(".operator"); 
-const equals = document.querySelector("#equals"); 
-const clearButton = document.querySelector("#clearButton");
+
 
 function calculate() {
     if (operatorIsClicked) {
@@ -43,19 +47,23 @@ function calculate() {
 }
 
 const divide = function(x, y) {
-	return x / y;
+	let res = x / y;
+    return roundDown(res.toString());
 };
 
 const multiply = function(x, y) {
-	return x * y;
+	let res = x * y;
+    return roundDown(res.toString());
 };
 
 const subtract = function(x, y) {
-	return x - y;  
+	let res = x - y;  
+    return roundDown(res.toString());
 };
 
 const add = function(x, y) {
-	return x + y;
+	let res = x + y;
+    return roundDown(res.toString());
 };
 
 function operate(operator, num1, num2) {
@@ -71,9 +79,6 @@ function operate(operator, num1, num2) {
     }
 }
 
-numList.forEach(num => num.addEventListener("click",    
-    e => populateDisplay(e.target.textContent)));
-
 function populateDisplay(num) {
     // refresh display for next operand
     if (operatorIsClicked || equalIsClicked) {
@@ -82,13 +87,23 @@ function populateDisplay(num) {
         equalIsClicked = false;
     }
     // if displayed value is non-zero
-    if (display.textContent != 0) {
+    if (display.textContent != 0 && display.textContent.length < MAX_LENGTH) {
         display.textContent += num;
     // if displayed value is at initial value of 0, update with non-zero number
     } else if (display.textContent == 0 && num != 0) {
         display.textContent = num;
     } 
 }
+
+function roundDown(numStr) {
+    if (numStr.length > MAX_LENGTH) {
+        return numStr.substring(0, MAX_LENGTH);
+    }
+    return numStr;
+}
+
+numList.forEach(num => num.addEventListener("click",    
+    e => populateDisplay(e.target.textContent)));
 
 operatorList.forEach(operator => operator.addEventListener("click", e => {
     prevOperator = currOperator;
@@ -107,7 +122,16 @@ clearButton.addEventListener("click", () => {
     // reset display to init value
     display.textContent = 0;
     num1 = 0; num2 = 0;
-    prevOperator = "";
+    result = 0;
     currOperator = "";
+    prevOperator = "";
     operatorIsClicked = false; equalIsClicked = false;
+});
+
+posNegButton.addEventListener("click", () => {
+    display.textContent *= -1;
+});
+
+percentageButton.addEventListener("click", () => {
+    display.textContent /= 100;
 });
