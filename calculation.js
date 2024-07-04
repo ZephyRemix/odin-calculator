@@ -1,10 +1,9 @@
 /* 
 Edge cases to fix:
-- Round down display to total of x numbers (so no overflow)
 - Current logic error: when clicked 60 followed by 2 operators consecutively, "60" will automatically be stored to both num1 and num2;
 - by right, it should hold on to evaluating only until the 2nd operator is keyed in, no matter how many times the operator is clicked
-
 */
+
 const MAX_LENGTH = 8;
 const display = document.querySelector(".display");
 const numList = document.querySelectorAll(".operand");
