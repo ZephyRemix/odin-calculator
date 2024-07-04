@@ -60,9 +60,23 @@ button {
 }
 
 .operator:active, #equals:active {
-    background-color: #fbc78e;
+    animation-name: btn-operator;
+    animation-duration: 0.5s;
 }
 
+@keyframes btn-operator {
+    from {
+        background-color: #ff9f0a;
+    }
+    to {
+        background-color: #fbc78e;
+    }
+}
+
+.operator:focus, #equals:focus {
+    background-color: white;
+    color: #ff9f0a;
+}
 .misc {
     background-color: #a5a5a5;
 }
